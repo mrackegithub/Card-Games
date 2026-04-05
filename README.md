@@ -1,3 +1,7 @@
+<img width="799" height="478" alt="image" src="https://github.com/user-attachments/assets/fac063a6-e3b6-4beb-91e4-a042a250a29d" />
+
+<img width="1119" height="684" alt="image" src="https://github.com/user-attachments/assets/f5feb156-64d9-44aa-b31b-c74bd41e8c61" />
+
 # Blackjack Simulator & Game
 
 A C# WinForms blackjack game that also doubles as a Monte Carlo simulation engine for figuring out optimal play strategy. Started as a game, turned into something a bit more interesting.
