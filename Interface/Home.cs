@@ -16,13 +16,9 @@ namespace Poker
         {
             InitializeComponent();
         }
-        bool blackjack = false;
+        bool blackjack = true;
         bool poker = false;
-        private void Blackjack_Click(object sender, EventArgs e)
-        {
-            poker = false;
-            blackjack = true;
-        }
+        
         public List<string> listnames = new List<string>();
         public List<int> listbalances = new List<int>();
 
@@ -59,6 +55,11 @@ namespace Poker
             Form1 form1 = new Form1(listnames, listbalances);
             form1.Show();
             this.Hide();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

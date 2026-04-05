@@ -47,6 +47,8 @@ namespace Poker
                 MessageBox.Show("Round over. Starting new round.");
                 game.start1();
                 showButtons();
+                bet_amount.Maximum = (int)game.Players[0].Balance;
+
             }
         }
         private void UpdatePlayerPanels(bool isOver,string ch, string bal)
@@ -96,7 +98,7 @@ namespace Poker
             {
                 game.currentPlayer--;
                 game.Players[game.currentPlayer].currentHand--;
-                trenutniUlog.Text = "Current bet: " + game.Players[game.currentPlayer].Hands[game.Players[game.currentPlayer].currentHand].bet.ToString();
+                trenutniUlog.Text = "Current bet: " + game.Players[game.currentPlayer].Hands[game.Players[game.currentPlayer].currentHand].bet.ToString();//nesto crkne kad ima natural blackjack
                 trenutnaRuka.Text = "Current hand number: " + (game.Players[game.currentPlayer].currentHand + 1).ToString();
                 balance.Text = "Balance: " + game.Players[game.currentPlayer].Balance.ToString();
                 game.Players[game.currentPlayer].currentHand++;
@@ -178,6 +180,8 @@ namespace Poker
         private void Hit_Click(object sender, EventArgs e)
         {
             game.Hit();
+            DoubleDown.Hide();
+            Split.Hide();
             UpdatePlayerPanels();
         }
 
@@ -206,6 +210,7 @@ namespace Poker
 
         private void betting_button_Click(object sender, EventArgs e)
         {
+            bet_amount.Maximum = (int)game.Players[currentBettingPlayer].Balance;
             float bet = bet_amount.Value;
             game.Players[currentBettingPlayer].PlaceBet(bet);       
             currentBettingPlayer++;
@@ -221,18 +226,20 @@ namespace Poker
                 this.Split.Show();
                 
                 game.DealInitialCards();
+                checkIfRoundOver();
                 currentBettingPlayer = 0;
                 UpdatePlayerPanels();
                 balance.Show();
                 trenutnaRuka.Show();
                 trenutniUlog.Show();
+                checkIfRoundOver();//ovde negde je greska
             }
         }
 
         private void bet_amount_Scroll(object sender, EventArgs e)
         {
             this.bet_show.Text = bet_amount.Value.ToString();
-            
+            this.bet_amount.Maximum = (int)game.Players[currentBettingPlayer].Balance-1;
         }
 
         private void Start_Click(object sender, EventArgs e)

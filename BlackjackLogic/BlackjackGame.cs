@@ -21,6 +21,7 @@ namespace Poker
                 player.currentHand = 0;
                 Player.Hand newHand = new Player.Hand(new List<Cards>(), 0);
                 player.Hands.Add(newHand);
+                player.hasBlackjack = false;
             }
             GameDeck.Shuffle();
             dealer.Hands.Clear();
@@ -38,48 +39,70 @@ namespace Poker
             int dealerValue = dealer.Hands[0].getHandValue();
             foreach(var player in Players)
             {
-                for(int i = 0; i< player.Hands.Count; i++)
+                if (!player.hasBlackjack && !dealer.hasBlackjack)
                 {
-                    int playerValue = (player as Player).Hands[i].getHandValue();
-                    if (playerValue > 21)
+                    for (int i = 0; i < player.Hands.Count; i++)
                     {
-                        player.Hands[i].bet = 0;
-                        
+                        int playerValue = (player as Player).Hands[i].getHandValue();
+                        if (playerValue > 21)
+                        {
+                            player.Hands[i].bet = 0;
+
+                        }
+                        else if (dealerValue > 21)
+                        {
+                            player.Balance += player.Hands[i].bet * 2;
+                            player.Hands[i].bet = 0;
+
+                        }
+                        else if (playerValue > dealerValue)
+                        {
+                            player.Balance += player.Hands[i].bet * 2;
+                            player.Hands[i].bet = 0;
+
+                        }
+                        else if (playerValue == dealerValue)
+                        {
+                            player.Balance += player.Hands[i].bet;
+                            player.Hands[i].bet = 0;
+
+                        }
+                        else
+                        {
+                            player.Hands[i].bet = 0;
+
+                        }
+                        if (player.Balance <= 0)
+                        {
+                            broke.Add(player as Player);
+
+                        }
                     }
-                    else if (dealerValue>21)
+                    foreach (var hand in player.Hands)
                     {
-                        player.Balance += player.Hands[i].bet*2;
-                        player.Hands[i].bet = 0;
-                        
+                        hand.bet = 0;
                     }
-                    else if(playerValue > dealerValue)
+                } 
+                else if(player.hasBlackjack && !dealer.hasBlackjack)
+                {
+                    
+                    player.Balance += player.Hands[0].bet * 1.5f;
+                    player.Hands[0].bet = 0;
+
+
+                }
+                else if(!player.hasBlackjack && dealer.hasBlackjack)
+                {
+                    for (int i = 0; i < player.Hands.Count; i++)
                     {
-                        player.Balance += player.Hands[i].bet*2;
-                        player.Hands[i].bet = 0;
-                        
-                    }
-                    else if (playerValue == dealerValue)
-                    {
-                        player.Balance += player.Hands[i].bet;
-                        player.Hands[i].bet = 0;
-                        
-                    }
-                    else
-                    {                      
-                        player.Hands[i].bet = 0;
-                        
-                    }
-                    if (player.Balance <= 0)
-                    {
-                        broke.Add(player as Player);
-                       
+                        player.Hands[0].bet = 0;
                     }
                 }
-                foreach(var hand in player.Hands)
+                else
                 {
-                    hand.bet = 0;
+                    player.Balance += player.Hands[0].bet;
+                    player.Hands[0].bet = 0;
                 }
-               
             }
             foreach(var player in broke)
             {
@@ -92,6 +115,7 @@ namespace Poker
         {
             if (player.Hands[0].getHandValue() == 21)
             {
+                player.hasBlackjack = true;//resetovati ovo negde kasnije
                 return true;
             }
             else
@@ -107,6 +131,7 @@ namespace Poker
             {
                 GameDeck.Deal(player);
                 GameDeck.Deal(player);
+                finishBlackjack();
             }
         }
         public void DealDealerCards()//ovo je nepotrebno skloniti
@@ -210,6 +235,19 @@ namespace Poker
             else
             {
                 throw new Exception("Insufficient balance to double down.");
+            }
+
+        }
+        public void finishBlackjack() 
+        {
+            if(checkblackjack(Players[currentPlayer])||checkblackjack(dealer))
+            {
+                currentPlayer++;
+                Players[currentPlayer-1].currentHand++;
+                if (isRoundOver())
+                {
+                    resolveRound();
+                }
             }
 
         }

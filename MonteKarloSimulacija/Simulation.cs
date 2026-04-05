@@ -68,24 +68,30 @@ namespace Poker
                 }
                 if (dealerValue > 21 || playerValue > dealerValue)
                 {
+                    if(action=="double")
+                    {
+                        wins = wins + 2;
+                    }
                     wins++;
-
                 }
                 else if (playerValue == dealerValue)
                 {
+                    
                     draws++;
 
                 }
                 else
                 {
+                    if (action == "double")
+                    {
+                        losses = losses + 2;
+                    }
                     losses++;
-
                 }
             }
             randomValue = _rnd.Next(2,15);
             if (randomValue == 11)
-            {
-                
+            {               
                 randomValue = 11;
                 aces++;
             }
@@ -104,7 +110,7 @@ namespace Poker
                     playerValue += randomValue;
                     if (playerValue > 21 && aces == 0)
                     {
-                        losses++;
+                        losses = losses+2;
                     }
                     else if (playerValue > 21 && aces > 0)
                     {
@@ -120,7 +126,7 @@ namespace Poker
                         stand();
                     }
 
-                }//paziti na zagradu
+                }
                     else if (action == "hit")
                     {
                         playerValue += randomValue;
@@ -164,7 +170,7 @@ namespace Poker
             }
             else if (HandType == "soft")
             {
-                aces++;
+                aces++;//potencijalna greska u logici
                 if (action == "stand")
                 {
                     stand();

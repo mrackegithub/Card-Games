@@ -36,6 +36,7 @@
             this.Split = new System.Windows.Forms.Button();
             this.bet_amount = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.exit = new System.Windows.Forms.Button();
             this.bet_show = new System.Windows.Forms.TextBox();
             this.betting_button = new System.Windows.Forms.Button();
             this.Start = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.trenutnaRuka = new System.Windows.Forms.Label();
             this.trenutniUlog = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bet_amount)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -118,6 +118,17 @@
             this.panel1.Size = new System.Drawing.Size(1119, 95);
             this.panel1.TabIndex = 7;
             // 
+            // exit
+            // 
+            this.exit.BackColor = System.Drawing.Color.OliveDrab;
+            this.exit.Location = new System.Drawing.Point(991, 57);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(75, 23);
+            this.exit.TabIndex = 8;
+            this.exit.Text = "exit";
+            this.exit.UseVisualStyleBackColor = false;
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
             // bet_show
             // 
             this.bet_show.Location = new System.Drawing.Point(12, 72);
@@ -158,7 +169,7 @@
             // 
             this.ruke.AutoSize = true;
             this.ruke.BackColor = System.Drawing.Color.Transparent;
-            this.ruke.Location = new System.Drawing.Point(123, 335);
+            this.ruke.Location = new System.Drawing.Point(158, 330);
             this.ruke.Name = "ruke";
             this.ruke.Size = new System.Drawing.Size(908, 178);
             this.ruke.TabIndex = 17;
@@ -195,17 +206,6 @@
             // 
             this.timer1.Interval = 2000;
             // 
-            // exit
-            // 
-            this.exit.BackColor = System.Drawing.Color.OliveDrab;
-            this.exit.Location = new System.Drawing.Point(991, 57);
-            this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(75, 23);
-            this.exit.TabIndex = 8;
-            this.exit.Text = "exit";
-            this.exit.UseVisualStyleBackColor = false;
-            this.exit.Click += new System.EventHandler(this.exit_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,7 +221,8 @@
             this.Controls.Add(this.Start);
             this.Controls.Add(this.dilerKarte);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
