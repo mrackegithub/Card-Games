@@ -10,11 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-//aplikacija ima memory leak, slike se ucitavaju neefikasno i ostaju u memoriji
+
 namespace Poker
 {
     
-    //add counter to all actions to know when to reset game
+    
     public partial class Form1 : Form
     {
         public List<string> Names = new List<string>();
@@ -46,7 +46,7 @@ namespace Poker
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
-        private void checkIfRoundOver()//premestiti ovu funkciju, naci joj advekvatno mesto.
+        private void checkIfRoundOver()
         {
             
             if (game.isRoundOver())
@@ -114,7 +114,7 @@ namespace Poker
             {
                 game.currentPlayer--;
                 game.Players[game.currentPlayer].currentHand--;
-                trenutniUlog.Text = "Current bet: " + game.Players[game.currentPlayer].Hands[game.Players[game.currentPlayer].currentHand].bet.ToString();//nesto crkne kad ima natural blackjack
+                trenutniUlog.Text = "Current bet: " + game.Players[game.currentPlayer].Hands[game.Players[game.currentPlayer].currentHand].bet.ToString();
                 trenutnaRuka.Text = "Current hand number: " + (game.Players[game.currentPlayer].currentHand + 1).ToString();
                 balance.Text = "Balance: " + game.Players[game.currentPlayer].Balance.ToString();
                 game.Players[game.currentPlayer].currentHand++;
@@ -248,7 +248,7 @@ namespace Poker
                 balance.Show();
                 trenutnaRuka.Show();
                 trenutniUlog.Show();
-                checkIfRoundOver();//ovde negde je greska
+                checkIfRoundOver();
             }
         }
 

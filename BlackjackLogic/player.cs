@@ -13,13 +13,13 @@ namespace Poker
     public partial class Player
     {
         public string Name { get; set; }
-        public float Balance { get ; set;  }//enkapsulirano
+        public float Balance { get ; set;  }
         public bool hasBlackjack { get; set; } = false;
         public Player(string name, float balance)
         {
             this.Name = name;
             this.Balance = balance;
-        }//konstruktor
+        }
         public List<Hand> Hands { get; set; } = new List<Hand>();
         public int currentHand { get; set; } = 0;
         public bool IsDone()

@@ -1,4 +1,4 @@
-﻿//popraviti resolve da sve lepo resi
+﻿
 namespace Poker
 {
     public class Cards

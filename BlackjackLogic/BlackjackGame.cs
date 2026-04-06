@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//popraviti resolve da sve lepo resi
+
 namespace Poker
 {
     public class BlackjackGame : Game
@@ -115,7 +115,7 @@ namespace Poker
         {
             if (player.Hands[0].getHandValue() == 21)
             {
-                player.hasBlackjack = true;//resetovati ovo negde kasnije
+                player.hasBlackjack = true;
                 return true;
             }
             else
@@ -134,7 +134,7 @@ namespace Poker
                 finishBlackjack();
             }
         }
-        public void DealDealerCards()//ovo je nepotrebno skloniti
+        public void DealDealerCards()
         {
             Player.Hand newHand = new Player.Hand(new List<Cards>(), 0);
             dealer.Hands.Add(newHand);
@@ -252,8 +252,5 @@ namespace Poker
 
         }
     }
-
-
-
 }
 

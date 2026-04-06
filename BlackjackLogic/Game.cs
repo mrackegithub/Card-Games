@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-//popraviti resolve da sve lepo resi
+
 namespace Poker
 {
     public class Game
@@ -18,8 +18,5 @@ namespace Poker
             currentPlayer = 0;
         }
     }
-
-
-
 }
 

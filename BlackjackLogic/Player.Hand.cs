@@ -12,7 +12,7 @@ namespace Poker
             {
                 this.Cards = karte;
                 this.bet = bet;
-            }//konstruktor
+            }
             public float bet { get; set; } = 0;
             public List<Cards> Cards { get; set; } = new List<Cards>();
             
@@ -33,7 +33,7 @@ namespace Poker
                     }
                 }
 
-                // Handle aces as 1 if needed to avoid busting
+                
                 while (totalValue > 21 && aceCount > 0)
                 {
                     totalValue -= 10;
