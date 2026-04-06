@@ -115,7 +115,7 @@ namespace Poker
         {
             if (player.Hands[0].getHandValue() == 21)
             {
-                player.hasBlackjack = true;
+                player.hasBlackjack = true;//možda nepotrebno al ostaviću
                 return true;
             }
             else
@@ -127,8 +127,11 @@ namespace Poker
         
         public void DealInitialCards()
         {
+
             foreach (var player in Players)
             {
+                player.hasBlackjack = false;
+                dealer.hasBlackjack = false;
                 GameDeck.Deal(player);
                 GameDeck.Deal(player);
                 finishBlackjack();
