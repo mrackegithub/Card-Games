@@ -30,6 +30,22 @@ namespace Poker
             string fullPath = Path.Combine(appBasePath, relativePath);
             return Image.FromFile(fullPath); 
         }
+        private void ClearControlsWithDispose(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                if (control is PictureBox pb && pb.Image != null)
+                {
+                    pb.Image.Dispose();
+                    pb.Image = null;
+                }
+                control.Dispose();
+            }
+            parent.Controls.Clear();
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
         private void checkIfRoundOver()//premestiti ovu funkciju, naci joj advekvatno mesto.
         {
             
@@ -42,13 +58,13 @@ namespace Poker
                 int temp = game.currentPlayer;
                 game.resolveRound();
                 string bal = game.Players[temp].Balance.ToString();
-                dilerKarte.Controls.Clear();
+                ClearControlsWithDispose(dilerKarte);
                 UpdatePlayerPanels(true,ch,bal);
                 MessageBox.Show("Round over. Starting new round.");
                 game.start1();
                 showButtons();
                 bet_amount.Maximum = (int)game.Players[0].Balance;
-
+                
             }
         }
         private void UpdatePlayerPanels(bool isOver,string ch, string bal)
@@ -56,7 +72,7 @@ namespace Poker
             trenutniUlog.Text = "Current bet: " + 0;
             trenutnaRuka.Text = "Current hand number: " + ch;
             balance.Text = "Balance: " + bal;
-            ruke.Controls.Clear();
+            ClearControlsWithDispose(ruke);
             foreach (var ruka in game.Players[0].Hands)
             {
                 FlowLayoutPanel ruka1 = new FlowLayoutPanel();
@@ -72,7 +88,7 @@ namespace Poker
                     ruka1.Controls.Add(cardPicture);
                 }
             }
-            dilerKarte.Controls.Clear();
+            ClearControlsWithDispose(dilerKarte);
             foreach (var card in game.dealer.Hands[0].Cards)
             {
                 PictureBox cardPicture = new PictureBox();
@@ -111,7 +127,7 @@ namespace Poker
                 trenutnaRuka.Text = "Current hand number: " + (game.Players[game.currentPlayer].currentHand + 1).ToString();
                 balance.Text = "Balance: " + game.Players[game.currentPlayer].Balance.ToString();
             }
-            ruke.Controls.Clear();
+            ClearControlsWithDispose(ruke);
             foreach (var ruka in game.Players[0].Hands)
             {
                   FlowLayoutPanel ruka1 = new FlowLayoutPanel();
@@ -127,8 +143,8 @@ namespace Poker
                       ruka1.Controls.Add(cardPicture);
                   }
             }
-            dilerKarte.Controls.Clear();
-            
+            ClearControlsWithDispose(dilerKarte);
+
             PictureBox dcardPicture = new PictureBox();
             string appBasePath = AppDomain.CurrentDomain.BaseDirectory;
             string relativePath = $"Resources\\{"putincardfinal.png"}";
@@ -259,7 +275,7 @@ namespace Poker
 
         private void exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
     }
 }
